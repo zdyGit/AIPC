@@ -1,0 +1,14 @@
+<Root>
+    <BaseData>
+        <BaseSZIndex>3050.00</BaseSZIndex>
+        <BaseAccountSize>400.00</BaseAccountSize>
+        <RateExtr>35.00</RateExtr>
+        <RateDiff>0.01</RateDiff>
+        <DateDiff>7</DateDiff>
+    </BaseData>
+    <LastData>
+        <LastInIndex>3050.00</LastInIndex>
+        <LastInDate>2016-07-07</LastInDate>
+        <curIndex>3049.9201</curIndex>
+    </LastData>
+</Root>
