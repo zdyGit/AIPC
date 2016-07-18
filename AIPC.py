@@ -84,12 +84,14 @@ def Main():
 
 	usage = "usage: %prog [options] arg"
 	parser = OptionParser(usage)
+	parser.add_option("-c","--curIndex",action="store_true",dest="getCurIndex",help="get Current Index")
 	parser.add_option("-g","--get",action="store_true",dest="getAccountOption",help="get current account over sz")
 	parser.add_option("-s","--save",action="store_true",dest="saveCurIndexOption",help="save curindex after buyin")
+	parser.add_option("-l","--lastInfo",action="store_true",dest="LastBuyinInfo",help="get Last Buyin Info")
 
 	(options,args) = parser.parse_args()
 
-	if options.getAccountOption == None and options.saveCurIndexOption == None:
+	if options.getAccountOption == None and options.saveCurIndexOption == None and options.LastBuyinInfo == None and options.getCurIndex == None:
 		print('args error ! press -h for help')
 		return
 
@@ -112,9 +114,16 @@ def Main():
 			print("Save Successfully ")
 		else:
 			print("Time Early Than 15:30")
+	if options.LastBuyinInfo == True:
+		print("LastInIndex : "+XMLTool.GetKeyValue("LastInIndex"))
+		print("LastInDate : "+XMLTool.GetKeyValue("LastInDate"))
 
-
-
+	if options.getCurIndex == True:
+		s = HTTPTool.GetSZIndex()
+		print("CurIndex : "+s)
+		now = date.today()
+		s = now.strftime('%Y-%m-%d')
+		print("CurDate : " +s)
 
 
 
