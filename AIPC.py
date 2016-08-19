@@ -57,8 +57,10 @@ def ComputeCurrentAccount(LII,LID,CII):
 	if rdiff<=0-RateDiff:
 		account = HowMuchMoney(CII)
 	else:
-		if ddiff>DateDiff:
+		if ddiff>=DateDiff:
 			account = HowMuchMoney(CII)
+		else:
+			print("%d DAYS LEFT"%(DateDiff-ddiff))
 	
 	return account
 
@@ -78,7 +80,7 @@ def Main():
 	RegisterOption()
 
 	now = datetime.now()
-	dltime1 = now.replace(hour = 14,minute = 50,second = 0)
+	dltime1 = now.replace(hour = 14,minute = 55,second = 0)
 	dltime2 = now.replace(hour = 15,minute = 30,second = 0)
 
 
@@ -92,7 +94,7 @@ def Main():
 	(options,args) = parser.parse_args()
 
 	if options.getAccountOption == None and options.saveCurIndexOption == None and options.LastBuyinInfo == None and options.getCurIndex == None:
-		print('args error ! press -h for help')
+		print('args error , press -h for help')
 		return
 
 	if options.getAccountOption == True:
@@ -101,7 +103,7 @@ def Main():
 			a = ComputeCurrentAccount(LastInIndex,LastInDate,curIndex)
 			print("NOW IN : %.2f"%a)
 		else:
-			print("Time Pass")
+			print("TIME PASS")
 	if options.saveCurIndexOption == True:
 		if(now > dltime2):
 			s = HTTPTool.GetSZIndex()
@@ -109,21 +111,23 @@ def Main():
 			XMLTool.SetKeyValue("LastInIndex",s)
 			now = date.today()
 			s = now.strftime('%Y-%m-%d')
-			print("Date : " +s)
+			print("DATE : " +s)
 			XMLTool.SetKeyValue("LastInDate",s)
-			print("Save Successfully ")
+			print("SAVE SUCCESSFULLY ")
 		else:
-			print("Time Early Than 15:30")
+			print("TIME EARLY THAN 15:30")
 	if options.LastBuyinInfo == True:
-		print("LastInIndex : "+XMLTool.GetKeyValue("LastInIndex"))
-		print("LastInDate : "+XMLTool.GetKeyValue("LastInDate"))
+		print("LASTININDEX : "+XMLTool.GetKeyValue("LastInIndex"))
+		print("LASTINDATE : "+XMLTool.GetKeyValue("LastInDate"))
 
 	if options.getCurIndex == True:
-		s = HTTPTool.GetSZIndex()
-		print("CurIndex : "+s)
+		l = float(XMLTool.GetKeyValue("LastInIndex"))
+		s = float(HTTPTool.GetSZIndex())
+		d = float(HTTPTool.GetCurDayRate())
+		print("CURRENTINDEX : %s (%.2f %%)[%.2f %%] "%(str(s),d*100,(s-l)*100/l))
 		now = date.today()
 		s = now.strftime('%Y-%m-%d')
-		print("CurDate : " +s)
+		print("CURRENTDATE : " +s)
 
 
 
