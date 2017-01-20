@@ -1,6 +1,6 @@
 import urllib.request
 
-url = "http://hq.sinajs.cn/list=sh000001"
+url = "http://hq.sinajs.cn/list=sz399006"
 
 def GetSZIndex():
 	res_data = urllib.request.urlopen(url)

@@ -76,6 +76,11 @@ def RegisterOption():
 
 
 def Main():
+	CII = 2000
+	while(CII>=1400):
+		print(CII,Count(CII))
+		CII = CII - 10
+	return
 
 	RegisterOption()
 
@@ -128,7 +133,6 @@ def Main():
 		now = date.today()
 		s = now.strftime('%Y-%m-%d')
 		print("CURRENTDATE : " +s)
-
 
 
 	
